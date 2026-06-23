@@ -21,104 +21,103 @@ allowed-tools:
   - Glob
 ---
 
-# HTML to PDF
+# HTML 转 PDF
 
-Convert HTML files to publication-quality PDFs using Playwright (headless Chromium).
-Renders exactly what the browser renders, with full CSS support including `@page`,
-flexbox, grid, web fonts, SVG, and background colors.
+使用 Playwright（无头 Chromium）将 HTML 文件转换为出版级 PDF。
+渲染效果与浏览器完全一致，完整支持 `@page`、flexbox、grid、Web 字体、SVG 和背景色等 CSS 特性。
 
-## Setup Check (run first)
+## 环境检查（首次运行）
 
 ```bash
-# Check Python
+# 检查 Python
 python --version 2>/dev/null || python3 --version 2>/dev/null
-# Check playwright
+# 检查 playwright
 python -c "import playwright; print('playwright OK')" 2>/dev/null || python3 -c "import playwright; print('playwright OK')" 2>/dev/null
-# Check chromium binary
+# 检查 chromium 浏览器
 python -c "from playwright.sync_api import sync_playwright; p=sync_playwright().start(); b=p.chromium.launch(); b.close(); p.stop(); print('chromium OK')" 2>/dev/null
 ```
 
-If any check fails, install dependencies:
+如果任一检查失败，安装依赖：
 
 ```bash
 pip install playwright
 playwright install chromium
 ```
 
-On Linux CI/Docker, you may also need system dependencies:
+Linux CI/Docker 环境可能还需要系统依赖：
 ```bash
 playwright install-deps chromium
 ```
 
-## Core Usage
+## 基本用法
 
-The conversion script is at `scripts/html_to_pdf.py` relative to this skill directory.
+转换脚本位于本 skill 目录下的 `scripts/html_to_pdf.py`。
 
-Determine the script path:
+确定脚本路径：
 ```bash
 _SKILL_DIR=""
 [ -n "$HOME" ] && [ -f "$HOME/.claude/skills/html-to-pdf/scripts/html_to_pdf.py" ] && _SKILL_DIR="$HOME/.claude/skills/html-to-pdf"
 [ -z "$_SKILL_DIR" ] && [ -f ".claude/skills/html-to-pdf/scripts/html_to_pdf.py" ] && _SKILL_DIR=".claude/skills/html-to-pdf"
-# Fallback: search for the script
+# 兜底：搜索脚本位置
 [ -z "$_SKILL_DIR" ] && _SKILL_DIR=$(find "$HOME/.claude" -path "*/html-to-pdf/scripts" -type d 2>/dev/null | head -1 | sed 's|/scripts$||')
 ```
 
-### 80% case — basic conversion
+### 最常用场景 — 基本转换
 
 ```bash
 python "$_SKILL_DIR/scripts/html_to_pdf.py" page.html
-# -> page.pdf (same directory, same name)
+# -> 生成 page.pdf（同目录、同名）
 
 python "$_SKILL_DIR/scripts/html_to_pdf.py" page.html output.pdf
-# -> output.pdf (explicit output path)
+# -> 指定输出路径 output.pdf
 ```
 
-### With CSS @page support (recommended)
+### 遵循 CSS @page 规则（推荐）
 
-If the HTML has `@page { size: A4; margin: 2cm; }` rules:
+当 HTML 包含 `@page { size: A4; margin: 2cm; }` 规则时：
 
 ```bash
 python "$_SKILL_DIR/scripts/html_to_pdf.py" --prefer-css-page-size page.html
 ```
 
-This respects the page size and margins defined in CSS.
+自动使用 CSS 中定义的页面尺寸和边距。
 
-### Batch conversion
+### 批量转换
 
 ```bash
 python "$_SKILL_DIR/scripts/html_to_pdf.py" ch1.html ch2.html ch3.html
-# -> ch1.pdf, ch2.pdf, ch3.pdf
+# -> 生成 ch1.pdf, ch2.pdf, ch3.pdf
 ```
 
-## All Options
+## 全部选项
 
 ```
-Page layout:
-  --format FORMAT             A4 (default), Letter, Legal, A0-A6
-  --landscape                 Horizontal orientation
-  --prefer-css-page-size      Use @page CSS rules (recommended)
-  --margin-top DIM            Top margin (e.g., 2cm, 1in, 72pt)
-  --margin-right DIM          Right margin
-  --margin-bottom DIM         Bottom margin
-  --margin-left DIM           Left margin
+页面布局:
+  --format FORMAT             纸张大小: A4 (默认), Letter, Legal, A0-A6
+  --landscape                 横向打印
+  --prefer-css-page-size      使用 @page CSS 规则（推荐）
+  --margin-top DIM            上边距 (如 2cm, 1in, 72pt)
+  --margin-right DIM          右边距
+  --margin-bottom DIM         下边距
+  --margin-left DIM           左边距
 
-Features:
-  --outline                   PDF bookmarks from headings
-  --tagged                    Accessibility tags
-  --scale N                   Zoom factor (default: 1.0)
-  --no-background             Skip background colors/images
+功能:
+  --outline                   从标题生成 PDF 书签
+  --tagged                    添加无障碍标签
+  --scale N                   缩放比例 (默认 1.0)
+  --no-background             不打印背景色/图片
 
-Header/Footer:
-  --header-template HTML      Page header HTML
-  --footer-template HTML      Page footer HTML
+页眉页脚:
+  --header-template HTML      页眉 HTML 模板
+  --footer-template HTML      页脚 HTML 模板
 
-Output:
-  --quiet, -q                 Suppress progress output
+输出:
+  --quiet, -q                 静默模式
 ```
 
-## Common Patterns
+## 常见场景
 
-### Full publication layout
+### 完整出版级布局
 
 ```bash
 python "$_SKILL_DIR/scripts/html_to_pdf.py" \
@@ -126,7 +125,7 @@ python "$_SKILL_DIR/scripts/html_to_pdf.py" \
   report.html report.pdf
 ```
 
-### Custom margins with Letter size
+### Letter 尺寸 + 自定义边距
 
 ```bash
 python "$_SKILL_DIR/scripts/html_to_pdf.py" \
@@ -136,7 +135,7 @@ python "$_SKILL_DIR/scripts/html_to_pdf.py" \
   doc.html doc.pdf
 ```
 
-### Landscape for wide tables
+### 横向打印（适合宽表格）
 
 ```bash
 python "$_SKILL_DIR/scripts/html_to_pdf.py" \
@@ -144,9 +143,9 @@ python "$_SKILL_DIR/scripts/html_to_pdf.py" \
   data-table.html data-table.pdf
 ```
 
-### Custom header and footer
+### 自定义页眉页脚
 
-Footer shows page number: `Page <span class="pageNumber"></span> of <span class="totalPages"></span>`
+页脚显示页码：`Page <span class="pageNumber"></span> of <span class="totalPages"></span>`
 
 ```bash
 python "$_SKILL_DIR/scripts/html_to_pdf.py" \
@@ -154,35 +153,35 @@ python "$_SKILL_DIR/scripts/html_to_pdf.py" \
   report.html report.pdf
 ```
 
-## When Claude should run it
+## 何时触发此 Skill
 
-Watch for HTML-to-PDF intent. Any of these patterns trigger this skill:
+当用户表达 HTML 转 PDF 的意图时触发，包括：
 
-- "Convert this HTML to PDF"
-- "Export as PDF"
-- "Print to PDF"
-- "Generate a PDF from this page"
-- "Make this HTML into a PDF"
-- User has an HTML file and says "make it a PDF"
+- 「把这个 HTML 转成 PDF」
+- 「导出为 PDF」
+- 「打印为 PDF」
+- 「从这个页面生成 PDF」
+- 「把这个 HTML 做成 PDF」
+- 用户打开了 HTML 文件并要求生成 PDF
 
-## Troubleshooting
+## 常见问题排查
 
-| Problem | Cause | Solution |
-|---------|-------|----------|
-| Background colors missing | `print_background` defaults to True but may be overridden | Ensure `--no-background` is NOT set |
-| Fonts look wrong | System fonts missing | Use web fonts (Google Fonts CDN) or embed with `@font-face` |
-| Images missing | Relative paths not resolved | Use absolute paths or `file://` base URLs; ensure images exist |
-| @page CSS ignored | Flag not set | Add `--prefer-css-page-size` |
-| Blank PDF | JavaScript-rendered content | Add wait time; the script uses `wait_until='networkidle'` which should handle most cases |
-| `playwright install` fails | Missing system deps (Linux) | Run `playwright install-deps chromium` |
-| PDF too large | High-res images | Compress images in the HTML source |
-| Text not selectable | Scanned/image content | This is expected; use OCR tools for scanned PDFs |
+| 问题 | 原因 | 解决方案 |
+|------|------|----------|
+| 背景色丢失 | `print_background` 被覆盖 | 确保未设置 `--no-background` |
+| 字体显示异常 | 系统缺少字体 | 使用 Web 字体（Google Fonts CDN）或 `@font-face` 嵌入 |
+| 图片缺失 | 相对路径未解析 | 使用绝对路径或 `file://` 基础 URL；确认图片文件存在 |
+| @page CSS 无效 | 未设置对应参数 | 添加 `--prefer-css-page-size` |
+| PDF 空白 | JS 渲染内容未等待 | 脚本已使用 `wait_until='networkidle'`，通常可覆盖大部分情况 |
+| `playwright install` 失败 | 缺少系统依赖（Linux） | 运行 `playwright install-deps chromium` |
+| PDF 文件过大 | 高分辨率图片 | 压缩 HTML 源码中的图片 |
+| 文字不可选中 | 扫描件/图片内容 | 属正常现象；扫描件请使用 OCR 工具 |
 
-## Technical Notes
+## 技术说明
 
-- **Engine**: Playwright Chromium (headless mode, no display server needed)
-- **Python**: 3.9+ required
-- **CSS**: Full support — @page, flexbox, grid, web fonts, SVG, @media print
-- **JavaScript**: Executed (unlike wkhtmltopdf); SPAs and dynamic content work
-- **Output**: Standard PDF with optional outline bookmarks and accessibility tags
-- **Concurrency**: One file at a time (Chromium instance per file)
+- **渲染引擎**：Playwright Chromium（无头模式，无需显示服务器）
+- **Python 版本**：3.9+
+- **CSS 支持**：完整支持 — @page、flexbox、grid、Web 字体、SVG、@media print
+- **JavaScript**：会执行（不同于 wkhtmltopdf）；SPA 和动态内容可正常工作
+- **输出格式**：标准 PDF，可选书签和 accessibility 标签
+- **并发**：逐文件处理（每个文件启动一个 Chromium 实例）
