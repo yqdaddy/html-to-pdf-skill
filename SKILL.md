@@ -1,19 +1,20 @@
 ---
 name: html-to-pdf
 description: >
-  Convert HTML files to publication-quality PDFs using Playwright (headless Chromium).
-  Use when the user asks to "convert HTML to PDF", "print HTML", "export as PDF",
-  "generate PDF from HTML", "make a PDF from this page", or any HTML-to-PDF conversion request.
-  Supports @page CSS, custom margins, outlines/bookmarks, headers/footers, batch conversion.
+  使用 Playwright（无头 Chromium）将 HTML 文件转换为出版级 PDF。
+  当用户要求「HTML 转 PDF」「打印为 PDF」「导出 PDF」「从网页生成 PDF」或任何 HTML 转 PDF 请求时触发。
+  支持 @page CSS、自定义边距、PDF 书签、自定义页眉页脚、批量转换。
 author: 码孖AI
 license: MIT
 triggers:
   - html to pdf
+  - html转pdf
+  - 转pdf
+  - 导出pdf
+  - 打印pdf
   - convert to pdf
   - print to pdf
   - export pdf
-  - generate pdf from html
-  - make pdf
 allowed-tools:
   - Bash
   - Read
