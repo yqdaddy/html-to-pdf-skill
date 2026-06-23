@@ -1,10 +1,22 @@
 # html-to-pdf-skill
 
-A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that converts HTML files to publication-quality PDFs using [Playwright](https://playwright.dev/python/) (headless Chromium).
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Playwright](https://img.shields.io/badge/Playwright-Chromium-2EAD33?logo=playwright)](https://playwright.dev/python/)
+[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-D97759?logo=anthropic)](https://docs.anthropic.com/en/docs/claude-code)
+
+A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that converts HTML files to publication-quality PDFs using [Playwright](https://playwright.dev/python/) (headless Chromium). Built by [码孖AI](https://github.com/yqdaddy).
 
 > **What it does:** Renders HTML exactly as the browser does, then exports to PDF. Full CSS support including `@page`, flexbox, grid, web fonts, SVG, and background colors.
 
 [中文文档](README_zh.md)
+
+## Who is this for?
+
+- **Developers** who need to generate PDF reports, invoices, or documentation from HTML templates
+- **Content creators** who write in HTML and need print-ready PDF output
+- **CI/CD pipelines** that automate document generation (works headless on Linux/Docker)
+- **Claude Code users** who want a reliable "HTML to PDF" skill in their toolkit
 
 ## Features
 
@@ -38,7 +50,7 @@ Copy this skill to your Claude Code skills directory:
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/html-to-pdf-skill.git
+git clone https://github.com/yqdaddy/html-to-pdf-skill.git
 
 # Copy to your skills directory
 cp -r html-to-pdf-skill ~/.claude/skills/html-to-pdf
@@ -147,6 +159,16 @@ The script launches a headless Chromium instance, loads the HTML file via `file:
 - **Use `--outline`** for long documents — creates clickable bookmarks in the PDF
 - **Use `@media print`** CSS to style PDF output differently from screen display
 
+## Author
+
+**码孖AI** — Building practical AI tools and Claude Code skills.
+
+- GitHub: [@yqdaddy](https://github.com/yqdaddy)
+
 ## License
 
-MIT
+[MIT](LICENSE)
+
+---
+
+<!-- SEO keywords: html to pdf, html2pdf, html to pdf converter, playwright pdf, chromium pdf, headless browser pdf, claude code skill, css @page pdf, batch html to pdf, pdf generator, pdf bookmarks, html print, web to pdf, html to pdf python, html to pdf cli -->

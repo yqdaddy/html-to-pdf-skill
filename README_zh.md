@@ -1,10 +1,22 @@
 # html-to-pdf-skill
 
-一个 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 技能，使用 [Playwright](https://playwright.dev/python/)（无头 Chromium）将 HTML 文件转换为出版级 PDF。
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Playwright](https://img.shields.io/badge/Playwright-Chromium-2EAD33?logo=playwright)](https://playwright.dev/python/)
+[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-D97759?logo=anthropic)](https://docs.anthropic.com/en/docs/claude-code)
+
+一个 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 技能，使用 [Playwright](https://playwright.dev/python/)（无头 Chromium）将 HTML 文件转换为出版级 PDF。由 [码孖AI](https://github.com/yqdaddy) 开发。
 
 > **功能：** 像浏览器一样精确渲染 HTML，然后导出为 PDF。完整支持 CSS，包括 `@page`、flexbox、grid、Web 字体、SVG 和背景色。
 
 [English](README.md)
+
+## 适合谁使用？
+
+- **开发者** — 需要从 HTML 模板生成 PDF 报告、发票或文档
+- **内容创作者** — 用 HTML 写作，需要可打印的 PDF 输出
+- **CI/CD 流水线** — 自动化文档生成（Linux/Docker 无头环境可用）
+- **Claude Code 用户** — 想要一个可靠的「HTML 转 PDF」技能
 
 ## 特性
 
@@ -38,7 +50,7 @@ playwright install-deps chromium
 
 ```bash
 # 克隆仓库
-git clone https://github.com/YOUR_USERNAME/html-to-pdf-skill.git
+git clone https://github.com/yqdaddy/html-to-pdf-skill.git
 
 # 复制到技能目录
 cp -r html-to-pdf-skill ~/.claude/skills/html-to-pdf
@@ -147,6 +159,16 @@ HTML 文件
 - **使用 `--outline`** — 为长文档生成可点击的 PDF 书签
 - **使用 `@media print`** — 为 PDF 输出设置与屏幕显示不同的样式
 
+## 作者
+
+**码孖AI** — 专注于实用的 AI 工具和 Claude Code 技能开发。
+
+- GitHub: [@yqdaddy](https://github.com/yqdaddy)
+
 ## 许可证
 
-MIT
+[MIT](LICENSE)
+
+---
+
+<!-- SEO 关键词: html转pdf, html转pdf工具, html生成pdf, playwright生成pdf, chromiun打印pdf, 无头浏览器pdf, claude code技能, css @page pdf, 批量html转pdf, pdf生成器, pdf书签, html打印, 网页转pdf, html转pdf python, html转pdf命令行, html to pdf converter -->
