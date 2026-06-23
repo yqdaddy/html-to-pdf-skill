@@ -5,6 +5,7 @@ description: >
   Use when the user asks to "convert HTML to PDF", "print HTML", "export as PDF",
   "generate PDF from HTML", "make a PDF from this page", or any HTML-to-PDF conversion request.
   Supports @page CSS, custom margins, outlines/bookmarks, headers/footers, batch conversion.
+license: MIT
 triggers:
   - html to pdf
   - convert to pdf
